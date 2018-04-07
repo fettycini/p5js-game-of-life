@@ -1,30 +1,30 @@
-resolution = 20;
 
-function make2DArray (column,rows) {
-  let arr = new Array(column);
-  for (let i=0; i<arr.length; i++) {
-    arr[i] = new Array(rows);
-  }
-  return arr;
-}
-
-let grid;
-let column ;
-let rows ;
+resolution= 20
 
 function setup () {
-  createCanvas(800, 800);
+  createCanvas(400, 400);
+  grid = new Grid(20);
+}
+
+function draw () {
+  background(250);
+  
+  grid.draw();
+}
+
+class grid {
+  constructor () {
   column=width/resolution;
   rows= height/resolution;
   grid = make2DArray(column,rows);
   for (let i=0; i<column; i++) {
     for (let k=0; k < rows; k++) {
       grid [i] [k] = floor(random(2));
-      }
   }
 }
+  }
 
-function draw () {
+  draw () {
   for (let i=0; i<column; i++) {
     for (let k=0; k < rows; k++) {
       let x=i * resolution;
@@ -33,15 +33,7 @@ function draw () {
       else fill (255);
       noStroke;
       rect(x,y,resolution-1,resolution-1)
- 
-
+      }
     }
-  }
-  
 }
-
-class Grid {
-  constructor () {
-
-  }
 }

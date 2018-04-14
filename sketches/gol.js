@@ -16,7 +16,9 @@ function draw () {
   background(250);
   
   grid.draw();
+  grid.updateNeighborCounts();
 }
+
 
 class Grid {
   constructor (cellSize) {
@@ -44,5 +46,17 @@ class Grid {
       rect(x,y,this.cellSize-1,this.cellSize-1)
       }
     }
+}
+  updateNeighborCounts (grid,x,y) {
+  let sum = 0;
+  for (let i = -1; i < 2; i++) {
+    for (let j = -1; j < 2; j++) {
+      let columns = (x + i + this.columns) % this.columns;
+      let rows = (y + j + this.rows) % this.rows;
+      sum += grid[this.columns][this.rows];
+  }
+}
+  sum -= grid[x][y];
+  return sum;
 }
 }

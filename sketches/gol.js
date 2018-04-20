@@ -17,8 +17,16 @@ function draw () {
   
   grid.draw();
   grid.updateNeighborCounts();
+  cell.draw();
 }
 
+class Cell {
+	constructor (columns, rows, cellSize)
+	this.rows= rows;
+	this.columns = columns;
+	this.cellSize= cellSize;
+	this.isAlive= false;
+}
 
 class Grid {
   constructor (cellSize) {
@@ -47,16 +55,14 @@ class Grid {
       }
     }
 }
-  updateNeighborCounts (grid,x,y) {
+  updateNeighborCounts (grid,xOffset,yOffset) {
   let sum = 0;
-  for (let i = -1; i < 2; i++) {
-    for (let j = -1; j < 2; j++) {
-      let columns = (x + i + this.columns) % this.columns;
-      let rows = (y + j + this.rows) % this.rows;
-      sum += grid[this.columns][this.rows];
+  for (var xOffset = -1; xOffset <= 1; xOffset++) {
+    for (var yOffset = -1; yOffset <= 1; yOffset++) {
+     var neighborX = currentCell.column + xOffset
+     var neighborY = currentCell.row + yOffset
+
+      sum += grid[x][y];
   }
-}
-  sum -= grid[x][y];
-  return sum;
 }
 }

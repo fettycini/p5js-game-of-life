@@ -13,19 +13,41 @@ function setup() {
 
 function draw() {
     background(250);
-
     grid.draw();
     grid.updateNeighborCounts();
     cell.draw();
+
 }
 
 class Cell {
     constructor(rows, column, cellSize, isAlive) {
-    this.rows=rows;
-    this.columns = column;
-    this.cellSize=cellSize;
-    this.isAlive = false;
-  }
+        this.rows = rows;
+        this.columns = column;
+        this.cellSize = cellSize;
+        this.isAlive = false;
+    }
+
+    liveOrDie() {
+    	
+        var next = make2DArray(columns, rows);
+
+        for (var i = 0; i < columns; i++) {
+            for (var j = 0; j < rows; j++) {
+                var isAlive = grid[i][j];
+                var neighbors = updateNeighborCounts(grid, i, j);
+
+                if (isAlive == 0 && neighbors == 3) {
+                    next[i][j] = 1;
+                } else if (isAlive == 1 && (neighbors < 2 || neighbors > 3)) {
+                    next[i][j] = 0;
+                } else {
+                    next[i][j] = isAlive;
+                }
+
+            }
+        }
+
+    }
 }
 
 class Grid {
@@ -56,9 +78,9 @@ class Grid {
         }
     }
     updateNeighborCounts() {
-        for (var i = 0; i < this.columns ; i++) {
+        for (var i = 0; i < this.columns; i++) {
             for (var j = 0; j < this.rows; j++) {
-              var currentCell= this.grid[i][j];
+                var currentCell = this.grid[i][j];
                 var neighborX = this.columns + i
                 var neighborY = this.rows + j
 
@@ -68,4 +90,7 @@ class Grid {
             }
         }
     }
-  }
+    updatePopulation() {
+
+    }
+}

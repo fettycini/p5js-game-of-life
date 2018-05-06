@@ -15,13 +15,14 @@ function setup() {
 function draw() {
     background(250);
     grid.draw();
-    grid.updateNeighborCounts();
     randomize.setIsAlive();
+    grid.updateNeighborCounts();
+
 
 }
 
 class Cell {
-    constructor(rows, column, cellSize, isAlive) {
+    constructor() {
         this.rows = rows;
         this.columns = column;
         this.cellSize = cellSize;
@@ -29,7 +30,7 @@ class Cell {
     }
 
     liveOrDie() {
-    	
+
         var next = make2DArray(columns, rows);
 
         for (var i = 0; i < columns; i++) {
@@ -51,16 +52,16 @@ class Cell {
 
     }
 
-    // setIsAlive(value) {
-    // 	if (value = true) {
-    // 		isAlive = true;
-    // 	} else if (value = false) {
-    // 		isAlive= false;
-    // 	}
-    // 	}
+    setIsAlive(value) {
+     if (value == true) {
+         isAlive == true;
+     } else if (value == false) {
+         isAlive == false;
+     }
+     }
 
-    // }
 }
+
 
 class Grid {
     constructor(cellSize) {
@@ -90,11 +91,11 @@ class Grid {
     }
 
     randomize() {
-    	for (var i=0; i < this.columns; i++) {
-    		for (var k = 0; k < this.rows; k++) {
-
-    		}
-    	}
+        for (var i = 0; i < this.columns; i++) {
+            for (var k = 0; k < this.rows; k++) {
+                grid[i][k] = setIsAlive.random(2)
+            }
+        }
 
 
     }
@@ -105,13 +106,19 @@ class Grid {
                 var neighborX = this.columns + i
                 var neighborY = this.rows + j
 
-                print(neighborX + " ," + neighborY);
+                if (neighborX >= 0 && neighborY >= 0 && neighborX < this.columns && neighborY < this.rows) {
+                    var cellValue = this.grid[neighborX] [neighborY];
+                } else {
+                    //
+                }
 
-                //sum += grid[x][y];
+                //print(neighborX + " ," + neighborY);
             }
         }
     }
     updatePopulation() {
+        // for (var i = 0; i < this.columns; i++) {
+        //     for (var j = 0; j < this.rows; j++) {
 
     }
 }

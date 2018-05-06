@@ -16,13 +16,12 @@ function draw() {
     background(250);
     grid.draw();
     grid.updateNeighborCounts();
-    grid.updatePopulation
-    //cell.draw();
+    randomize.setIsAlive();
 
 }
 
 class Cell {
-    constructor(rows, column, cellSize) {
+    constructor(rows, column, cellSize, isAlive) {
         this.rows = rows;
         this.columns = column;
         this.cellSize = cellSize;
@@ -30,36 +29,39 @@ class Cell {
     }
 
     liveOrDie() {
+    	
+        var next = make2DArray(columns, rows);
 
-        //var next = make2DArray(columns, rows);
-
-        for (var i = 0; i < this.columns; i++) {
-            for (var j = 0; j < this.rows; j++) {
-               this.isAlive = grid[i][j];
+        for (var i = 0; i < columns; i++) {
+            for (var j = 0; j < rows; j++) {
+                var isAlive = grid[i][j];
                 var neighbors = updateNeighborCounts(grid, i, j);
 
-                if (this.isAlive == 0 && neighbors == 3) { //born on next gen.
+                if (isAlive == 0 && neighbors == 3) {
                     next[i][j] = 1;
-
-                } else if (this.isAlive == 1 && (neighbors < 2 || neighbors > 3)) { //die on next gen.
+                } else if (isAlive == 1 && (neighbors < 2 || neighbors > 3)) {
                     next[i][j] = 0;
+                } else {
+                    next[i][j] = isAlive;
 
-                } else { //stay alive
-                    next[i][j] = this.isAlive;
                 }
 
             }
         }
 
     }
+
+    // setIsAlive(value) {
+    // 	if (value = true) {
+    // 		isAlive = true;
+    // 	} else if (value = false) {
+    // 		isAlive= false;
+    // 	}
+    // 	}
+
+    // }
 }
 
-function keyPressed() {
-   gamenotpaused= !gamenotpaused
-
-   print(gamenotpaused);
-    }
-    
 class Grid {
     constructor(cellSize) {
         this.cellSize = cellSize;
@@ -67,29 +69,34 @@ class Grid {
         this.columns = width / cellSize;
         this.rows = height / cellSize;
 
-        this.grid = make2DArray(this.columns, this.rows);
-        for (var i = 0; i < this.columns; i++) {
-            for (var k = 0; k < this.rows; k++) {
-                this.grid[i][k] = new Cell (i, k, this.cellSize)
-            }
-        }
+        // this.grid = make2DArray(this.columns, this.rows);
+        // for (var i = 0; i < this.columns; i++) {
+        //     for (var k = 0; k < this.rows; k++) {
+        //          this.grid[i][k] = floor(random(2));
+        //     }
+        // }
     }
-
     draw() {
         for (var i = 0; i < this.columns; i++) {
             for (var k = 0; k < this.rows; k++) {
-                print(this.grid[i][k]);
-                //var x = i * this.cellSize;
-                //var y = k * this.cellSize;
-                var cell =this.grid[i][k];
-                //draw cell
-                cell.draw();
+                var x = i * this.cellSize;
+                var y = k * this.cellSize;
                 if (this.grid[i][k] == 1) fill(0);
                 else fill(255);
                 noStroke;
                 rect(x, y, this.cellSize - 1, this.cellSize - 1)
-                }
+            }
         }
+    }
+
+    randomize() {
+    	for (var i=0; i < this.columns; i++) {
+    		for (var k = 0; k < this.rows; k++) {
+
+    		}
+    	}
+
+
     }
     updateNeighborCounts() {
         for (var i = 0; i < this.columns; i++) {
@@ -98,21 +105,13 @@ class Grid {
                 var neighborX = this.columns + i
                 var neighborY = this.rows + j
 
-                //print(neighborX + " ," + neighborY);
+                print(neighborX + " ," + neighborY);
 
                 //sum += grid[x][y];
-
-                //updated currentCell.liveneighborcount
             }
         }
     }
     updatePopulation() {
 
-        for (var i = 0; i < this.columns; i++) {
-            for (var j = 0; j < this.rows; j++) {
-                //if (grid[i][j]) 
-                    //call liveordie on currentcell
-            }
-        }
     }
-} 
+}

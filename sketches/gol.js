@@ -9,6 +9,7 @@ function make2DArray(column, rows) {
 function setup() {
     createCanvas(400, 400);
     grid = new Grid(20);
+    grid.randomize();
 }
 
 function draw() {
@@ -21,7 +22,7 @@ function draw() {
 }
 
 class Cell {
-    constructor(rows, column, cellSize, isAlive) {
+    constructor(rows, column, cellSize) {
         this.rows = rows;
         this.columns = column;
         this.cellSize = cellSize;
@@ -30,7 +31,7 @@ class Cell {
 
     liveOrDie() {
 
-        var next = make2DArray(columns, rows);
+        //var next = make2DArray(columns, rows);
 
         for (var i = 0; i < this.columns; i++) {
             for (var j = 0; j < this.rows; j++) {
@@ -53,11 +54,12 @@ class Cell {
     }
 }
 
-// function keyPressed() {
-//     if (keyCode === ENTER) {
-//         if 
-//     }
-// }
+function keyPressed() {
+   gamenotpaused= !gamenotpaused
+
+   print(gamenotpaused);
+    }
+    
 class Grid {
     constructor(cellSize) {
         this.cellSize = cellSize;
@@ -68,7 +70,7 @@ class Grid {
         this.grid = make2DArray(this.columns, this.rows);
         for (var i = 0; i < this.columns; i++) {
             for (var k = 0; k < this.rows; k++) {
-                this.grid[i][k] = floor(random(2));
+                this.grid[i][k] = new Cell (i, k, this.cellSize)
             }
         }
     }
@@ -76,15 +78,17 @@ class Grid {
     draw() {
         for (var i = 0; i < this.columns; i++) {
             for (var k = 0; k < this.rows; k++) {
-                var x = i * this.cellSize;
-                var y = k * this.cellSize;
-
+                print(this.grid[i][k]);
+                //var x = i * this.cellSize;
+                //var y = k * this.cellSize;
+                var cell =this.grid[i][k];
                 //draw cell
+                cell.draw();
                 if (this.grid[i][k] == 1) fill(0);
                 else fill(255);
                 noStroke;
                 rect(x, y, this.cellSize - 1, this.cellSize - 1)
-            }
+                }
         }
     }
     updateNeighborCounts() {
@@ -97,16 +101,18 @@ class Grid {
                 //print(neighborX + " ," + neighborY);
 
                 //sum += grid[x][y];
+
+                //updated currentCell.liveneighborcount
             }
         }
     }
     updatePopulation() {
-        population = 0;
 
         for (var i = 0; i < this.columns; i++) {
             for (var j = 0; j < this.rows; j++) {
-                if (grid[i][j]) population++;
+                //if (grid[i][j]) 
+                    //call liveordie on currentcell
             }
         }
     }
-}
+} 
